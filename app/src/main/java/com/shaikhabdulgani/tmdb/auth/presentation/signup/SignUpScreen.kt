@@ -39,6 +39,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.shaikhabdulgani.tmdb.R
 import com.shaikhabdulgani.tmdb.core.presentation.DialogContent
@@ -54,6 +55,7 @@ import com.shaikhabdulgani.tmdb.auth.domain.validation.RepeatPasswordValidator
 import com.shaikhabdulgani.tmdb.auth.domain.validation.UsernameValidator
 import com.shaikhabdulgani.tmdb.core.domain.model.User
 import com.shaikhabdulgani.tmdb.core.presentation.dummy.DummyAuthRepo
+import com.shaikhabdulgani.tmdb.core.presentation.util.clearBackStack
 import com.shaikhabdulgani.tmdb.ui.theme.DarkBg
 import com.shaikhabdulgani.tmdb.ui.theme.GradientEnd
 import com.shaikhabdulgani.tmdb.ui.theme.GradientStart
@@ -88,7 +90,9 @@ fun SignUpScreen(
                 }
 
                 is Resource.Success -> {
-                    controller.navigate(Screen.Home)
+                    controller.navigate(Screen.Home){
+                        clearBackStack(controller)
+                    }
                     showDialog = false
                 }
             }

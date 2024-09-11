@@ -10,3 +10,6 @@ fun NavHostController.toContentDetail(media: Media){
         mediaType = media.mediaType.getValue(),
     ))
 }
+fun NavHostController.toProfile(){
+    navigate(Screen.Profile)
+}

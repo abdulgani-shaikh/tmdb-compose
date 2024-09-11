@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "108987751890",
-    "project_id": "tmdb-638a4",
-    "storage_bucket": "tmdb-638a4.appspot.com"
+    "project_number": "802918477379",
+    "project_id": "tmdb-3f413",
+    "storage_bucket": "tmdb-3f413.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:108987751890:android:3770491b71ed1c33517c0b",
+        "mobilesdk_app_id": "1:802918477379:android:0a61692da8307c69006ef6",
         "android_client_info": {
           "package_name": "com.shaikhabdulgani.tmdb"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyC9JOF4Sl1yZAQUQklbIU9pTBaaoh8fQiI"
+          "current_key": "AIzaSyC9rT1xNWWV-mI0o50nrDielKJQojQWkpg"
         }
       ],
       "services": {

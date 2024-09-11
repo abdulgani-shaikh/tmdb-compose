@@ -13,11 +13,20 @@ import com.shaikhabdulgani.tmdb.core.data.util.Result
 import com.shaikhabdulgani.tmdb.core.data.util.await
 import com.shaikhabdulgani.tmdb.core.domain.model.User
 import com.shaikhabdulgani.tmdb.core.domain.repository.UserRepository
+import com.shaikhabdulgani.tmdb.core.domain.util.Resource
+import com.shaikhabdulgani.tmdb.home.domain.model.Media
+import com.shaikhabdulgani.tmdb.moviedetail.data.mapper.toMedia
+import com.shaikhabdulgani.tmdb.moviedetail.data.mapper.toMovieDetail
+import com.shaikhabdulgani.tmdb.moviedetail.data.mapper.toMovieDetailEntity
+import com.shaikhabdulgani.tmdb.moviedetail.data.source.remote.MovieDetailApi
+import com.shaikhabdulgani.tmdb.search.domain.model.MediaType
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(
     private val firestore: FirebaseFirestore,
-    private val db: AppDatabase
+    private val db: AppDatabase,
+    private val movieRepository: MovieDetailApi
 ) : UserRepository, BaseRepository() {
     override suspend fun getUser(uid: String, forceRemoteFetch: Boolean): Result<User> {
         return execute {
@@ -102,5 +111,31 @@ class UserRepositoryImpl @Inject constructor(
                 false
             }
         }
+    }
+
+    override suspend fun getFavorites(
+        uid: String,
+        forceRemoteFetch: Boolean
+    ): Flow<Resource<List<Media>>> {
+        return executeWithFlow {
+            val task = firestore.collection(FirebaseConstants.USER_COLLECTION)
+                .document(uid)
+                .get()
+                .await()
+            if (!task.isSuccessful || task.result == null) {
+                throw Exception("cannot fetch user")
+            }
+            val movieIds = task.result.mapToUserDto().favorites.reversed()
+            val result = mutableListOf<Media>()
+            movieIds.forEach { id ->
+                val movieDetail = movieRepository.getMovieDetail(id.toInt(), MediaType.MOVIE.getValue(), "")
+                result.add(movieDetail.toMedia(MediaType.MOVIE))
+            }
+            result
+        }
+    }
+
+    override suspend fun clear() {
+        db.userDao.clear()
     }
 }

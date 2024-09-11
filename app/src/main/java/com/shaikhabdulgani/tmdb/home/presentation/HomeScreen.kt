@@ -38,6 +38,7 @@ import com.shaikhabdulgani.tmdb.core.presentation.dummy.DummyAuthRepo
 import com.shaikhabdulgani.tmdb.core.presentation.dummy.DummyHomeRepo
 import com.shaikhabdulgani.tmdb.core.presentation.util.toContentDetail
 import com.shaikhabdulgani.tmdb.core.presentation.util.noRippleClickable
+import com.shaikhabdulgani.tmdb.core.presentation.util.toProfile
 import com.shaikhabdulgani.tmdb.home.presentation.components.HomeTopTitle
 import com.shaikhabdulgani.tmdb.home.presentation.components.TabLayout
 import com.shaikhabdulgani.tmdb.home.presentation.util.HomeTab
@@ -83,7 +84,8 @@ fun HomeScreen(
                     end = MaterialTheme.spacing.default,
                     top = MaterialTheme.spacing.extraLarge
                 ),
-            username = viewModel.username
+            username = viewModel.username,
+            onProfileClick = controller::toProfile
         )
 
         Row(

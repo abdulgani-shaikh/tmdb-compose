@@ -21,6 +21,8 @@ import com.shaikhabdulgani.tmdb.auth.presentation.signup.SignUpViewModel
 import com.shaikhabdulgani.tmdb.core.domain.repository.UserRepository
 import com.shaikhabdulgani.tmdb.home.presentation.HomeViewModel
 import com.shaikhabdulgani.tmdb.moviedetail.presentation.MovieDetailViewModel
+import com.shaikhabdulgani.tmdb.profile.presentation.ProfileScreen
+import com.shaikhabdulgani.tmdb.profile.presentation.ProfileViewModel
 import com.shaikhabdulgani.tmdb.search.presentation.SearchScreen
 import com.shaikhabdulgani.tmdb.search.presentation.SearchViewModel
 import com.shaikhabdulgani.tmdb.ui.theme.TMDBTheme
@@ -84,6 +86,13 @@ fun MainApp(authRepository: AuthRepository) {
             MovieDetailScreen(
                 id = args.id,
                 contentType = args.mediaType,
+                controller = controller,
+                viewModel = viewModel
+            )
+        }
+        composable<Screen.Profile> {
+            val viewModel: ProfileViewModel = hiltViewModel()
+            ProfileScreen(
                 controller = controller,
                 viewModel = viewModel
             )

@@ -1,6 +1,7 @@
 package com.shaikhabdulgani.tmdb.home.presentation.components
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -22,7 +23,7 @@ import com.shaikhabdulgani.tmdb.core.presentation.util.getInitials
 import com.shaikhabdulgani.tmdb.ui.theme.White
 
 @Composable
-fun HomeTopTitle(modifier: Modifier = Modifier, username: String) {
+fun HomeTopTitle(modifier: Modifier = Modifier, username: String, onProfileClick: () -> Unit) {
     Row(
         modifier = modifier,
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -46,7 +47,10 @@ fun HomeTopTitle(modifier: Modifier = Modifier, username: String) {
                     width = 1.dp,
                     color = White,
                     shape = CircleShape
-                ),
+                )
+                .clickable {
+                    onProfileClick.invoke()
+                },
             contentAlignment = Alignment.Center
         ){
             Text(
