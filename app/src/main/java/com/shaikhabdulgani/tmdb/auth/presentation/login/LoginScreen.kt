@@ -39,6 +39,10 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.shaikhabdulgani.tmdb.R
 import com.shaikhabdulgani.tmdb.auth.domain.repository.AuthRepository
 import com.shaikhabdulgani.tmdb.core.domain.util.Resource
@@ -52,6 +56,7 @@ import com.shaikhabdulgani.tmdb.core.presentation.InputText
 import com.shaikhabdulgani.tmdb.auth.domain.validation.RepeatPasswordValidator
 import com.shaikhabdulgani.tmdb.core.domain.model.User
 import com.shaikhabdulgani.tmdb.core.presentation.dummy.DummyAuthRepo
+import com.shaikhabdulgani.tmdb.core.presentation.util.ObserveWithLifeCycle
 import com.shaikhabdulgani.tmdb.ui.theme.DarkBg
 import com.shaikhabdulgani.tmdb.ui.theme.GradientEnd
 import com.shaikhabdulgani.tmdb.ui.theme.GradientStart
@@ -72,24 +77,22 @@ fun LoginScreen(
 ) {
     val context = LocalContext.current
     var showDialog by remember { mutableStateOf(false) }
-    LaunchedEffect(context) {
-        viewModel.authState.collectLatest {
-            when (it) {
-                is Resource.Error -> {
-                    if (!it.message.isNullOrBlank()) {
-                        Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                    }
-                    showDialog = false
+    ObserveWithLifeCycle(flow = viewModel.authState) {
+        when (it) {
+            is Resource.Error -> {
+                if (!it.message.isNullOrBlank()) {
+                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
                 }
+                showDialog = false
+            }
 
-                is Resource.Loading -> {
-                    showDialog = true
-                }
+            is Resource.Loading -> {
+                showDialog = true
+            }
 
-                is Resource.Success -> {
-                    onLoginSuccess()
-                    showDialog = false
-                }
+            is Resource.Success -> {
+                onLoginSuccess()
+                showDialog = false
             }
         }
     }

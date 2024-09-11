@@ -11,7 +11,7 @@ interface UserDao {
     @Query("SELECT * FROM UserEntity WHERE uid=:uid")
     fun getUser(uid: String): UserEntity?
 
-    @Insert
+    @Upsert
     fun saveUser(user: UserEntity)
 
     @Query("DELETE FROM UserEntity")

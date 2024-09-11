@@ -78,4 +78,15 @@ object DummyUserRepo : UserRepository{
         TODO("Not yet implemented")
     }
 
+    override suspend fun getFavorites(
+        uid: String,
+        forceRemoteFetch: Boolean
+    ): Flow<Resource<List<Media>>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun clear() {
+        TODO("Not yet implemented")
+    }
+
 }

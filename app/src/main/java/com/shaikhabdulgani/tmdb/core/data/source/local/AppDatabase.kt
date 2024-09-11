@@ -24,7 +24,6 @@ import com.shaikhabdulgani.tmdb.moviedetail.data.source.local.entity.MovieDetail
 @TypeConverters(
     value = [
         MovieDetailConverters::class,
-//        UserConverter::class
     ]
 )
 abstract class AppDatabase : RoomDatabase() {

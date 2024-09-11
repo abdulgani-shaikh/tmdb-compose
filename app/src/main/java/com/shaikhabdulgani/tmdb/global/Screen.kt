@@ -21,5 +21,8 @@ sealed interface Screen {
     data object Search : Screen
 
     @Serializable
+    data object Profile : Screen
+
+    @Serializable
     class MovieDetail(val id: Int, val mediaType: String = MediaType.MOVIE.getValue()) : Screen
 }

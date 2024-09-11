@@ -2,6 +2,7 @@ package com.shaikhabdulgani.tmdb.moviedetail.data.mapper
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.shaikhabdulgani.tmdb.home.domain.model.Media
 import com.shaikhabdulgani.tmdb.moviedetail.data.source.local.entity.CastEntity
 import com.shaikhabdulgani.tmdb.moviedetail.data.source.local.entity.GenreEntity
 import com.shaikhabdulgani.tmdb.moviedetail.data.source.local.entity.MovieDetailEntity
@@ -9,6 +10,7 @@ import com.shaikhabdulgani.tmdb.moviedetail.data.source.local.entity.Recommendat
 import com.shaikhabdulgani.tmdb.moviedetail.data.source.remote.dto.MovieDetailDto
 import com.shaikhabdulgani.tmdb.moviedetail.domain.model.MovieDetail
 import com.shaikhabdulgani.tmdb.search.domain.model.ContentType
+import com.shaikhabdulgani.tmdb.search.domain.model.MediaType
 
 
 fun MovieDetailDto.toMovieDetailEntity(type: String): MovieDetailEntity {
@@ -42,6 +44,15 @@ fun MovieDetailEntity.toMovieDetail(): MovieDetail {
         genres = genres.toList().map { it.toGenreEntity().toGenre() },
         cast = cast.toList().map { it.toCastEntity().toCast() },
         recommendations = recommendations.toList().map { it.toRecommendationMovieEntity().toMovie() }
+    )
+}
+
+fun MovieDetailDto.toMedia(type: MediaType): Media{
+    return Media(
+        id = id,
+        title = title,
+        imageId = posterPath,
+        mediaType = type
     )
 }
 

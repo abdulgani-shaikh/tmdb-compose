@@ -39,7 +39,7 @@ class MovieDetailViewModel @Inject constructor(
         }
     }
 
-    fun getMovieDetails(id: Int, contentType: ContentType) = viewModelScope.launch {
+    fun getMovieDetails(id: Int, contentType: ContentType) = viewModelScope.launch(Dispatchers.IO) {
         isLoading = true
         val uid = authRepository.uuid()
         repository.getMovieDetail(id, contentType).collect {

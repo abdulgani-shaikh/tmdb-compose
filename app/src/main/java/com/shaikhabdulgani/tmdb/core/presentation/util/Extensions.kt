@@ -9,6 +9,8 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -20,8 +22,14 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.unit.IntSize
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavOptionsBuilder
+import com.shaikhabdulgani.tmdb.core.domain.model.User
+import kotlinx.coroutines.flow.Flow
 
 fun Modifier.noRippleClickable(onClick: () -> Unit): Modifier = composed {
     this.clickable(
@@ -68,7 +76,7 @@ fun Modifier.shimmer(
 }
 
 fun NavOptionsBuilder.clearBackStack(controller: NavController) {
-    this.popUpTo(controller.graph.startDestinationId) {
+    popUpTo(controller.graph.findStartDestination().id) {
         inclusive = true
     }
 }
@@ -86,5 +94,24 @@ fun String.getInitials(): String {
         this
     }else{
         username[0].toString() + username[1].toString()
+    }
+}
+
+fun emptyUser():User{
+    return User(
+        "",
+        "",
+        "",
+        emptyList()
+    )
+}
+
+@Composable
+fun <T> ObserveWithLifeCycle(flow: Flow<T>, action: (T) -> Unit) {
+    val lifecycle = LocalLifecycleOwner.current
+    LaunchedEffect(flow, lifecycle) {
+        lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
+            flow.collect(action)
+        }
     }
 }
