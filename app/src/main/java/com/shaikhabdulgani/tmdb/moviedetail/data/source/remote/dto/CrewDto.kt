@@ -1,29 +1,31 @@
 package com.shaikhabdulgani.tmdb.moviedetail.data.source.remote.dto
 
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class CrewDto(
-    @SerializedName("adult")
+    @SerialName("adult")
     val adult: Boolean,
-    @SerializedName("credit_id")
+    @SerialName("credit_id")
     val creditId: String,
-    @SerializedName("department")
+    @SerialName("department")
     val department: String,
-    @SerializedName("gender")
+    @SerialName("gender")
     val gender: Int,
-    @SerializedName("id")
+    @SerialName("id")
     val id: Int,
-    @SerializedName("job")
+    @SerialName("job")
     val job: String,
-    @SerializedName("known_for_department")
+    @SerialName("known_for_department")
     val knownForDepartment: String,
-    @SerializedName("name")
+    @SerialName("name")
     val name: String,
-    @SerializedName("original_name")
+    @SerialName("original_name")
     val originalName: String,
-    @SerializedName("popularity")
+    @SerialName("popularity")
     val popularity: Double,
-    @SerializedName("profile_path")
+    @SerialName("profile_path")
     val profilePath: String?
 )

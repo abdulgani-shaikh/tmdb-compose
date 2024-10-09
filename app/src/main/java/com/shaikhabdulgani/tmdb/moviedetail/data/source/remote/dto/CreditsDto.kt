@@ -1,11 +1,13 @@
 package com.shaikhabdulgani.tmdb.moviedetail.data.source.remote.dto
 
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class CreditsDto(
-    @SerializedName("cast")
+    @SerialName("cast")
     val cast: List<CastDto>,
-    @SerializedName("crew")
+    @SerialName("crew")
     val crew: List<CrewDto>
 )

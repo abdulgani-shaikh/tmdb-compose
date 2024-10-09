@@ -2,7 +2,6 @@ package com.shaikhabdulgani.tmdb.search.presentation
 
 import android.util.Log
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
@@ -13,7 +12,6 @@ import com.shaikhabdulgani.tmdb.search.domain.model.SearchResult
 import com.shaikhabdulgani.tmdb.search.domain.model.SearchType
 import com.shaikhabdulgani.tmdb.search.domain.repository.SearchRepository
 import com.shaikhabdulgani.tmdb.search.presentation.util.SearchFilter
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -22,10 +20,8 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
-import javax.inject.Inject
 
-@HiltViewModel
-class SearchViewModel @Inject constructor(
+class SearchViewModel(
     private val searchRepository: SearchRepository
 ) : ViewModel() {
 

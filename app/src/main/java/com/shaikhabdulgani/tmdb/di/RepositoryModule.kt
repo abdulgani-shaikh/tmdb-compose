@@ -10,34 +10,13 @@ import com.shaikhabdulgani.tmdb.moviedetail.data.repository.MovieDetailRepositor
 import com.shaikhabdulgani.tmdb.moviedetail.domain.repository.MovieDetailRepository
 import com.shaikhabdulgani.tmdb.search.data.repository.SearchRepositoryImpl
 import com.shaikhabdulgani.tmdb.search.domain.repository.SearchRepository
-import dagger.Binds
-import dagger.Module
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import org.koin.dsl.bind
+import org.koin.dsl.module
 
-@Module
-@InstallIn(SingletonComponent::class)
-abstract class RepositoryModule {
-
-    @Binds
-    @Singleton
-    abstract fun provideAuthRepo(repo: FirebaseAuthRepository): AuthRepository
-
-    @Binds
-    @Singleton
-    abstract fun provideHomeRepo(repo: HomeRepositoryImpl): HomeRepository
-
-    @Binds
-    @Singleton
-    abstract fun provideUserRepo(repo: UserRepositoryImpl): UserRepository
-
-    @Binds
-    @Singleton
-    abstract fun bindSearchRepo(repo: SearchRepositoryImpl): SearchRepository
-
-    @Binds
-    @Singleton
-    abstract fun provideMovieDetailRepo(repo: MovieDetailRepositoryImpl): MovieDetailRepository
-
+val repositoryModule = module {
+    single<AuthRepository> { FirebaseAuthRepository(get(), get()) } bind AuthRepository::class
+    single<HomeRepository> { HomeRepositoryImpl(get(), get(), get()) } bind HomeRepository::class
+    single<UserRepository> { UserRepositoryImpl(get(), get(), get()) } bind UserRepository::class
+    single<SearchRepository> { SearchRepositoryImpl(get()) } bind SearchRepository::class
+    single<MovieDetailRepository> { MovieDetailRepositoryImpl(get(), get()) } bind MovieDetailRepository::class
 }

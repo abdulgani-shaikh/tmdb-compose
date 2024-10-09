@@ -16,14 +16,11 @@ import com.shaikhabdulgani.tmdb.core.domain.repository.UserRepository
 import com.shaikhabdulgani.tmdb.core.domain.util.Resource
 import com.shaikhabdulgani.tmdb.home.domain.model.Media
 import com.shaikhabdulgani.tmdb.moviedetail.data.mapper.toMedia
-import com.shaikhabdulgani.tmdb.moviedetail.data.mapper.toMovieDetail
-import com.shaikhabdulgani.tmdb.moviedetail.data.mapper.toMovieDetailEntity
 import com.shaikhabdulgani.tmdb.moviedetail.data.source.remote.MovieDetailApi
 import com.shaikhabdulgani.tmdb.search.domain.model.MediaType
 import kotlinx.coroutines.flow.Flow
-import javax.inject.Inject
 
-class UserRepositoryImpl @Inject constructor(
+class UserRepositoryImpl(
     private val firestore: FirebaseFirestore,
     private val db: AppDatabase,
     private val movieRepository: MovieDetailApi

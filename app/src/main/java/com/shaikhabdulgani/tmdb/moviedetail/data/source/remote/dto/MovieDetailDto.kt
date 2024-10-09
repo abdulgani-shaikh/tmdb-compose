@@ -1,63 +1,64 @@
 package com.shaikhabdulgani.tmdb.moviedetail.data.source.remote.dto
 
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-import com.google.gson.annotations.SerializedName
-
+@Serializable
 data class MovieDetailDto(
-    @SerializedName("adult")
+    @SerialName("adult")
     val adult: Boolean,
-    @SerializedName("backdrop_path")
+    @SerialName("backdrop_path")
     val backdropPath: String,
-    @SerializedName("budget")
+    @SerialName("budget")
     val budget: Int,
-    @SerializedName("credits")
+    @SerialName("credits")
     val credits: CreditsDto,
-    @SerializedName("genres")
+    @SerialName("genres")
     val genres: List<GenreDto>,
-    @SerializedName("homepage")
+    @SerialName("homepage")
     val homepage: String,
-    @SerializedName("id")
+    @SerialName("id")
     val id: Int,
-    @SerializedName("imdb_id")
+    @SerialName("imdb_id")
     val imdbId: String,
-    @SerializedName("origin_country")
+    @SerialName("origin_country")
     val originCountry: List<String>,
-    @SerializedName("original_language")
+    @SerialName("original_language")
     val originalLanguage: String,
-    @SerializedName("original_title")
+    @SerialName("original_title")
     val originalTitle: String,
-    @SerializedName("overview")
+    @SerialName("overview")
     val overview: String,
-    @SerializedName("popularity")
+    @SerialName("popularity")
     val popularity: Double,
-    @SerializedName("poster_path")
+    @SerialName("poster_path")
     val posterPath: String,
-    @SerializedName("production_companies")
+    @SerialName("production_companies")
     val productionCompanies: List<ProductionCompanyDto>,
-    @SerializedName("production_countries")
+    @SerialName("production_countries")
     val productionCountries: List<ProductionCountryDto>,
-    @SerializedName("recommendations")
+    @SerialName("recommendations")
     val recommendations: RecommendationsResultDto,
-    @SerializedName("release_date")
+    @SerialName("release_date")
     val releaseDate: String,
-    @SerializedName("revenue")
+    @SerialName("revenue")
     val revenue: Int,
-    @SerializedName("runtime")
+    @SerialName("runtime")
     val runtime: Int,
-    @SerializedName("spoken_languages")
+    @SerialName("spoken_languages")
     val spokenLanguages: List<SpokenLanguageDto>,
-    @SerializedName("status")
+    @SerialName("status")
     val status: String,
-    @SerializedName("tagline")
+    @SerialName("tagline")
     val tagline: String,
-    @SerializedName("title")
+    @SerialName("title")
     val title: String,
-    @SerializedName("video")
+    @SerialName("video")
     val video: Boolean,
-    @SerializedName("videos")
+    @SerialName("videos")
     val videos: VideoResult,
-    @SerializedName("vote_average")
+    @SerialName("vote_average")
     val voteAverage: Double,
-    @SerializedName("vote_count")
+    @SerialName("vote_count")
     val voteCount: Int
 )

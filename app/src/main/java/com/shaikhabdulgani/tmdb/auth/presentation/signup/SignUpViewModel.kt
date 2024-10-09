@@ -6,20 +6,17 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shaikhabdulgani.tmdb.auth.domain.repository.AuthRepository
-import com.shaikhabdulgani.tmdb.core.domain.util.Resource
 import com.shaikhabdulgani.tmdb.auth.domain.validation.AuthValidators
 import com.shaikhabdulgani.tmdb.auth.domain.validation.ValidationResult
 import com.shaikhabdulgani.tmdb.auth.presentation.InputTextState
 import com.shaikhabdulgani.tmdb.core.domain.model.User
-import dagger.hilt.android.lifecycle.HiltViewModel
+import com.shaikhabdulgani.tmdb.core.domain.util.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class SignUpViewModel @Inject constructor(
+class SignUpViewModel (
     private val authRepository: AuthRepository,
     private val validator: AuthValidators
 ) : ViewModel() {

@@ -1,9 +1,10 @@
 package com.shaikhabdulgani.tmdb.moviedetail.data.source.remote.dto
 
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-import com.google.gson.annotations.SerializedName
-
+@Serializable
 data class VideoResult(
-    @SerializedName("results")
+    @SerialName("results")
     val results: List<VideoDto>
 )

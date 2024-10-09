@@ -11,14 +11,11 @@ import com.shaikhabdulgani.tmdb.core.presentation.util.Paginator
 import com.shaikhabdulgani.tmdb.home.domain.model.Media
 import com.shaikhabdulgani.tmdb.home.domain.repository.HomeRepository
 import com.shaikhabdulgani.tmdb.home.presentation.util.HomeTab
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class HomeViewModel @Inject constructor(
+class HomeViewModel (
     private val homeRepository: HomeRepository,
     private val authRepository: AuthRepository,
 ) : ViewModel() {

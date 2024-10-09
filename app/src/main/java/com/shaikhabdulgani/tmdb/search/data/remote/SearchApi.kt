@@ -1,17 +1,37 @@
 package com.shaikhabdulgani.tmdb.search.data.remote
 
+import com.shaikhabdulgani.tmdb.global.Constants
 import com.shaikhabdulgani.tmdb.search.data.remote.dto.SearchResultResponseDto
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import io.ktor.client.HttpClient
+import io.ktor.client.call.body
+import io.ktor.client.request.get
+import io.ktor.client.request.parameter
+import io.ktor.client.request.url
 
 interface SearchApi {
 
-    @GET("search/{searchType}")
     suspend fun search(
-        @Path("searchType") searchType: String,
-        @Query("query") query: String,
-        @Query("page") page: Int,
+        searchType: String,
+        query: String,
+        page: Int,
     ): SearchResultResponseDto
+
+}
+
+class SearchApiImpl (
+    private val client: HttpClient
+) : SearchApi {
+
+    override suspend fun search(
+        searchType: String,
+        query: String,
+        page: Int
+    ): SearchResultResponseDto {
+        return client.get {
+            url("${Constants.BASE_URL}search/${searchType}")
+            parameter("query", query)
+            parameter("page", page)
+        }.body()
+    }
 
 }

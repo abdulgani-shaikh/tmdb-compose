@@ -5,24 +5,30 @@ import com.shaikhabdulgani.tmdb.auth.domain.validation.EmailValidator
 import com.shaikhabdulgani.tmdb.auth.domain.validation.PasswordValidator
 import com.shaikhabdulgani.tmdb.auth.domain.validation.RepeatPasswordValidator
 import com.shaikhabdulgani.tmdb.auth.domain.validation.UsernameValidator
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import com.shaikhabdulgani.tmdb.auth.presentation.login.LoginScreen
+import com.shaikhabdulgani.tmdb.auth.presentation.login.LoginViewModel
+import com.shaikhabdulgani.tmdb.auth.presentation.signup.SignUpViewModel
+import com.shaikhabdulgani.tmdb.home.presentation.HomeViewModel
+import com.shaikhabdulgani.tmdb.moviedetail.presentation.MovieDetailViewModel
+import com.shaikhabdulgani.tmdb.profile.presentation.ProfileViewModel
+import com.shaikhabdulgani.tmdb.search.presentation.SearchViewModel
+import org.koin.core.module.dsl.viewModel
+import org.koin.dsl.module
 
-@Module
-@InstallIn(SingletonComponent::class)
-class AppModule {
-
-    @Singleton
-    @Provides
-    fun provideAuthValidator(): AuthValidators {
-        return AuthValidators(
+val appModule = module {
+    single<AuthValidators> {
+        AuthValidators(
             emailValidator = EmailValidator(),
             passwordValidator = PasswordValidator(),
             rePasswordValidator = RepeatPasswordValidator(),
             usernameValidator = UsernameValidator(),
         )
     }
+
+    viewModel { HomeViewModel(get(),get()) }
+    viewModel { LoginViewModel(get(),get()) }
+    viewModel { SignUpViewModel(get(),get()) }
+    viewModel { SearchViewModel(get()) }
+    viewModel { MovieDetailViewModel(get(),get(),get()) }
+    viewModel { ProfileViewModel(get(),get()) }
 }

@@ -1,35 +1,37 @@
 package com.shaikhabdulgani.tmdb.home.data.remote.model
 
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class SeriesDto(
-    @SerializedName("adult")
+    @SerialName("adult")
     val adult: Boolean,
-    @SerializedName("backdrop_path")
-    val backdropPath: String,
-    @SerializedName("first_air_date")
+    @SerialName("backdrop_path")
+    val backdropPath: String?,
+    @SerialName("first_air_date")
     val firstAirDate: String,
-    @SerializedName("genre_ids")
+    @SerialName("genre_ids")
     val genreIds: List<Int>,
-    @SerializedName("id")
+    @SerialName("id")
     val id: Int,
-    @SerializedName("name")
+    @SerialName("name")
     val name: String,
-    @SerializedName("origin_country")
+    @SerialName("origin_country")
     val originCountry: List<String>,
-    @SerializedName("original_language")
+    @SerialName("original_language")
     val originalLanguage: String,
-    @SerializedName("original_name")
+    @SerialName("original_name")
     val originalName: String,
-    @SerializedName("overview")
+    @SerialName("overview")
     val overview: String,
-    @SerializedName("popularity")
+    @SerialName("popularity")
     val popularity: Double,
-    @SerializedName("poster_path")
+    @SerialName("poster_path")
     val posterPath: String?,
-    @SerializedName("vote_average")
+    @SerialName("vote_average")
     val voteAverage: Double,
-    @SerializedName("vote_count")
+    @SerialName("vote_count")
     val voteCount: Int
 )

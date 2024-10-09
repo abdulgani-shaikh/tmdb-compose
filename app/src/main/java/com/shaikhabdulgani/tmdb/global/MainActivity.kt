@@ -4,36 +4,34 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.shaikhabdulgani.tmdb.auth.domain.repository.AuthRepository
-import com.shaikhabdulgani.tmdb.core.presentation.util.clearBackStack
-import com.shaikhabdulgani.tmdb.home.presentation.HomeScreen
 import com.shaikhabdulgani.tmdb.auth.presentation.login.LoginScreen
 import com.shaikhabdulgani.tmdb.auth.presentation.login.LoginViewModel
-import com.shaikhabdulgani.tmdb.moviedetail.presentation.MovieDetailScreen
-import com.shaikhabdulgani.tmdb.onboarding.OnboardingScreen
 import com.shaikhabdulgani.tmdb.auth.presentation.signup.SignUpScreen
 import com.shaikhabdulgani.tmdb.auth.presentation.signup.SignUpViewModel
-import com.shaikhabdulgani.tmdb.core.domain.repository.UserRepository
+import com.shaikhabdulgani.tmdb.core.presentation.util.clearBackStack
+import com.shaikhabdulgani.tmdb.home.presentation.HomeScreen
 import com.shaikhabdulgani.tmdb.home.presentation.HomeViewModel
+import com.shaikhabdulgani.tmdb.moviedetail.presentation.MovieDetailScreen
 import com.shaikhabdulgani.tmdb.moviedetail.presentation.MovieDetailViewModel
+import com.shaikhabdulgani.tmdb.onboarding.OnboardingScreen
 import com.shaikhabdulgani.tmdb.profile.presentation.ProfileScreen
 import com.shaikhabdulgani.tmdb.profile.presentation.ProfileViewModel
 import com.shaikhabdulgani.tmdb.search.presentation.SearchScreen
 import com.shaikhabdulgani.tmdb.search.presentation.SearchViewModel
 import com.shaikhabdulgani.tmdb.ui.theme.TMDBTheme
-import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
+import org.koin.androidx.compose.koinViewModel
 
-@AndroidEntryPoint
+
 class MainActivity : ComponentActivity() {
 
-    @Inject
-    lateinit var authRepository: AuthRepository
+
+    private val authRepository: AuthRepository by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,7 +51,7 @@ fun MainApp(authRepository: AuthRepository) {
             OnboardingScreen(controller)
         }
         composable<Screen.Login> {
-            val viewModel: LoginViewModel = hiltViewModel()
+            val viewModel: LoginViewModel = koinViewModel()
             LoginScreen(
                 onLoginSuccess = {
                     controller.navigate(Screen.Home) {
@@ -65,24 +63,24 @@ fun MainApp(authRepository: AuthRepository) {
             )
         }
         composable<Screen.SignUp> {
-            val viewModel: SignUpViewModel = hiltViewModel()
+            val viewModel: SignUpViewModel = koinViewModel()
             SignUpScreen(
                 controller = controller,
                 viewModel = viewModel
             )
         }
         composable<Screen.Home> {
-            val viewModel: HomeViewModel = hiltViewModel()
+            val viewModel: HomeViewModel = koinViewModel()
             HomeScreen(controller, viewModel)
         }
 
         composable<Screen.Search> {
-            val viewModel: SearchViewModel = hiltViewModel()
+            val viewModel: SearchViewModel = koinViewModel()
             SearchScreen(controller,viewModel)
         }
         composable<Screen.MovieDetail> {
             val args = it.toRoute<Screen.MovieDetail>()
-            val viewModel = hiltViewModel<MovieDetailViewModel>()
+            val viewModel = koinViewModel<MovieDetailViewModel>()
             MovieDetailScreen(
                 id = args.id,
                 contentType = args.mediaType,
@@ -91,7 +89,7 @@ fun MainApp(authRepository: AuthRepository) {
             )
         }
         composable<Screen.Profile> {
-            val viewModel: ProfileViewModel = hiltViewModel()
+            val viewModel: ProfileViewModel = koinViewModel()
             ProfileScreen(
                 controller = controller,
                 viewModel = viewModel

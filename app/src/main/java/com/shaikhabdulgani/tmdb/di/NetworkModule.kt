@@ -3,72 +3,50 @@ package com.shaikhabdulgani.tmdb.di
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.shaikhabdulgani.tmdb.BuildConfig
-import com.shaikhabdulgani.tmdb.global.AuthInterceptor
-import com.shaikhabdulgani.tmdb.global.Constants
 import com.shaikhabdulgani.tmdb.home.data.remote.HomeApi
+import com.shaikhabdulgani.tmdb.home.data.remote.HomeApiImpl
 import com.shaikhabdulgani.tmdb.moviedetail.data.source.remote.MovieDetailApi
+import com.shaikhabdulgani.tmdb.moviedetail.data.source.remote.MovieDetailApiImpl
 import com.shaikhabdulgani.tmdb.search.data.remote.SearchApi
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import okhttp3.OkHttpClient
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
+import com.shaikhabdulgani.tmdb.search.data.remote.SearchApiImpl
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.android.Android
+import io.ktor.client.plugins.auth.Auth
+import io.ktor.client.plugins.auth.providers.BearerTokens
+import io.ktor.client.plugins.auth.providers.bearer
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.logging.LogLevel
+import io.ktor.client.plugins.logging.Logging
+import io.ktor.serialization.kotlinx.json.json
+import kotlinx.serialization.json.Json
+import org.koin.dsl.module
 
-@Module
-@InstallIn(SingletonComponent::class)
-class NetworkModule {
+val networkModule = module {
+    single { createHttpClient() }
+    single<SearchApi> { SearchApiImpl(get()) }
+    single<MovieDetailApi> { MovieDetailApiImpl(get()) }
+    single<HomeApi> { HomeApiImpl(get()) }
 
-    @Provides
-    @Singleton
-    fun provideOkHttpClient(): OkHttpClient {
-        return OkHttpClient.Builder()
-            .addInterceptor(AuthInterceptor(BuildConfig.API_KEY))
-            .build()
+    single<FirebaseAuth> { FirebaseAuth.getInstance() }
+    single<FirebaseFirestore> { FirebaseFirestore.getInstance() }
+}
+
+private fun createHttpClient() = HttpClient(Android) {
+    install(Logging) {
+        level = LogLevel.ALL
     }
-
-    @Provides
-    @Singleton
-    fun providesFirebaseAuth(): FirebaseAuth {
-        return FirebaseAuth.getInstance()
+    install(ContentNegotiation) {
+        json(
+            json = Json {
+                ignoreUnknownKeys = true
+            }
+        )
     }
-
-    @Provides
-    @Singleton
-    fun providesFirebaseFirestore(): FirebaseFirestore {
-        return FirebaseFirestore.getInstance()
-    }
-
-    @Provides
-    @Singleton
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
-        return Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(okHttpClient)
-            .baseUrl(Constants.BASE_URL)
-            .build()
-    }
-
-    @Provides
-    @Singleton
-    fun provideHomeApi(retrofit: Retrofit): HomeApi {
-        return retrofit
-            .create(HomeApi::class.java)
-    }
-
-    @Provides
-    @Singleton
-    fun provideSearchApi(retrofit: Retrofit): SearchApi {
-        return retrofit
-            .create(SearchApi::class.java)
-    }
-
-    @Provides
-    @Singleton
-    fun provideMovieDetailApi(retrofit: Retrofit): MovieDetailApi {
-        return retrofit
-            .create(MovieDetailApi::class.java)
+    install(Auth) {
+        bearer {
+            loadTokens {
+                BearerTokens(BuildConfig.API_KEY, "")
+            }
+        }
     }
 }

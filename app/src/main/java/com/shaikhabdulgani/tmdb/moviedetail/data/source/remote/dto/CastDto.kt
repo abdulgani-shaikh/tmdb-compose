@@ -1,31 +1,33 @@
 package com.shaikhabdulgani.tmdb.moviedetail.data.source.remote.dto
 
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class CastDto(
-    @SerializedName("adult")
+    @SerialName("adult")
     val adult: Boolean,
-    @SerializedName("cast_id")
+    @SerialName("cast_id")
     val castId: Int,
-    @SerializedName("character")
+    @SerialName("character")
     val character: String,
-    @SerializedName("credit_id")
+    @SerialName("credit_id")
     val creditId: String,
-    @SerializedName("gender")
+    @SerialName("gender")
     val gender: Int,
-    @SerializedName("id")
+    @SerialName("id")
     val id: Int,
-    @SerializedName("known_for_department")
+    @SerialName("known_for_department")
     val knownForDepartment: String,
-    @SerializedName("name")
+    @SerialName("name")
     val name: String,
-    @SerializedName("order")
+    @SerialName("order")
     val order: Int,
-    @SerializedName("original_name")
+    @SerialName("original_name")
     val originalName: String,
-    @SerializedName("popularity")
+    @SerialName("popularity")
     val popularity: Double,
-    @SerializedName("profile_path")
+    @SerialName("profile_path")
     val profilePath: String?
 )

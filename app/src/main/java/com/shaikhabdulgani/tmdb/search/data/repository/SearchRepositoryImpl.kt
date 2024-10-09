@@ -9,9 +9,8 @@ import com.shaikhabdulgani.tmdb.search.data.remote.SearchApi
 import com.shaikhabdulgani.tmdb.search.domain.model.SearchResult
 import com.shaikhabdulgani.tmdb.search.domain.model.SearchType
 import com.shaikhabdulgani.tmdb.search.domain.repository.SearchRepository
-import javax.inject.Inject
 
-class SearchRepositoryImpl @Inject constructor(
+class SearchRepositoryImpl(
     private val api: SearchApi
 ) : SearchRepository, BaseRepository() {
     override suspend fun search(

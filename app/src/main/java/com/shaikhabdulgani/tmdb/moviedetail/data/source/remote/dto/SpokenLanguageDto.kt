@@ -1,13 +1,15 @@
 package com.shaikhabdulgani.tmdb.moviedetail.data.source.remote.dto
 
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class SpokenLanguageDto(
-    @SerializedName("english_name")
+    @SerialName("english_name")
     val englishName: String,
-    @SerializedName("iso_639_1")
+    @SerialName("iso_639_1")
     val iso6391: String,
-    @SerializedName("name")
+    @SerialName("name")
     val name: String
 )

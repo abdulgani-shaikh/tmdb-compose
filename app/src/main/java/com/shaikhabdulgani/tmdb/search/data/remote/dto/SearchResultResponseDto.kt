@@ -1,15 +1,15 @@
 package com.shaikhabdulgani.tmdb.search.data.remote.dto
 
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
 
 data class SearchResultResponseDto(
-    @SerializedName("page")
+    @SerialName("page")
     val page: Int,
-    @SerializedName("results")
+    @SerialName("results")
     val results: List<SearchResultDto>,
-    @SerializedName("total_pages")
+    @SerialName("total_pages")
     val totalPages: Int,
-    @SerializedName("total_results")
+    @SerialName("total_results")
     val totalResults: Int
 )

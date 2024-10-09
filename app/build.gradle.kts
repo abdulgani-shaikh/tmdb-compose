@@ -5,7 +5,6 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.google.gms.google.services)
-    id("com.google.dagger.hilt.android")
     id("kotlin-kapt")
 }
 
@@ -60,11 +59,8 @@ android {
     }
     packaging {
         resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "/META-INF/*"
         }
-    }
-    hilt {
-        enableAggregatingTask = true
     }
 }
 
@@ -90,11 +86,11 @@ dependencies {
     implementation(libs.androidx.constraintlayout.compose)
     implementation(libs.androidx.material.icons.extended)
 
-    // Dagger
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
-    implementation(libs.androidx.hilt.navigation.compose)
-    kapt(libs.androidx.hilt.compiler)
+    //koin
+    implementation(platform(libs.koin.bom))
+    implementation(libs.koin.core)
+    implementation(libs.koin.androidx.compose)
+    implementation(libs.koin.androidx.compose.navigation)
 
     // ViewModel
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
@@ -103,11 +99,16 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.compose)
     kapt(libs.androidx.lifecycle.compiler)
 
-    //retrofit
-    implementation(libs.retrofit)
-    implementation(libs.converter.gson)
-    implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.kotlinx.coroutines.core)
+    //ktor
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.okhttp)
+    implementation(libs.ktor.client.android)
+    implementation(libs.ktor.serialization)
+    implementation(libs.ktor.client.logging)
+    implementation(libs.ktor.client.auth)
+    implementation(libs.ktor.client.content.negotiation)
+//    implementation(libs.logback)
+
 
     //navigation
     implementation(libs.navigation.compose)
@@ -117,6 +118,9 @@ dependencies {
     //coil
     implementation(libs.coil.compose)
 
+    implementation("com.google.code.gson:gson:2.10.1")
+
+
     //room
 //    implementation(libs.androidx.room.runtime)
 //    implementation(libs.androidx.room.compliler)
@@ -125,7 +129,6 @@ dependencies {
     implementation("androidx.room:room-runtime:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
     implementation("androidx.compose.runtime:runtime-livedata:1.2.1")
-//    annotationProcessor ("androidx.room:room-compiler:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
 
 

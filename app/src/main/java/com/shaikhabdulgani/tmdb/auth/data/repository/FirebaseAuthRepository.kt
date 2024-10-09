@@ -1,17 +1,16 @@
 package com.shaikhabdulgani.tmdb.auth.data.repository
 
 import com.google.firebase.auth.FirebaseAuth
-import com.shaikhabdulgani.tmdb.base.BaseRepository
-import com.shaikhabdulgani.tmdb.core.data.util.await
 import com.shaikhabdulgani.tmdb.auth.domain.repository.AuthRepository
+import com.shaikhabdulgani.tmdb.base.BaseRepository
 import com.shaikhabdulgani.tmdb.core.data.util.Result
+import com.shaikhabdulgani.tmdb.core.data.util.await
 import com.shaikhabdulgani.tmdb.core.domain.model.User
 import com.shaikhabdulgani.tmdb.core.domain.repository.UserRepository
 import com.shaikhabdulgani.tmdb.core.domain.util.Resource
 import kotlinx.coroutines.flow.Flow
-import javax.inject.Inject
 
-class FirebaseAuthRepository @Inject constructor(
+class FirebaseAuthRepository(
     private val auth: FirebaseAuth,
     private val userRepository: UserRepository
 ) : AuthRepository, BaseRepository() {
@@ -29,15 +28,16 @@ class FirebaseAuthRepository @Inject constructor(
                 }
             }
 
-            val user = when(val userResult = userRepository.getUser(authResult.result.user!!.uid, true)){
-                is Result.Failure -> {
-                    throw Exception(userResult.error)
-                }
+            val user =
+                when (val userResult = userRepository.getUser(authResult.result.user!!.uid, true)) {
+                    is Result.Failure -> {
+                        throw Exception(userResult.error)
+                    }
 
-                is Result.Success -> {
-                    userResult.data!!
+                    is Result.Success -> {
+                        userResult.data!!
+                    }
                 }
-            }
             return@executeWithFlow user
         }
     }
@@ -64,7 +64,7 @@ class FirebaseAuthRepository @Inject constructor(
                 username = username,
                 email = email
             )
-            val user = when(userResult){
+            val user = when (userResult) {
                 is Result.Failure -> {
                     throw Exception(userResult.error)
                 }

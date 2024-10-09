@@ -2,21 +2,20 @@ package com.shaikhabdulgani.tmdb.home.data.repository
 
 import android.util.Log
 import com.shaikhabdulgani.tmdb.base.BaseRepository
-import com.shaikhabdulgani.tmdb.home.data.remote.model.MovieListType
-import com.shaikhabdulgani.tmdb.home.data.remote.model.SeriesListType
 import com.shaikhabdulgani.tmdb.core.data.util.Result
 import com.shaikhabdulgani.tmdb.core.data.util.getRank
 import com.shaikhabdulgani.tmdb.core.data.util.isOneHourEarlier
 import com.shaikhabdulgani.tmdb.home.data.local.dao.MovieDao
 import com.shaikhabdulgani.tmdb.home.data.local.dao.SeriesDao
-import com.shaikhabdulgani.tmdb.home.data.remote.HomeApi
-import com.shaikhabdulgani.tmdb.home.domain.model.Media
-import com.shaikhabdulgani.tmdb.home.domain.repository.HomeRepository
 import com.shaikhabdulgani.tmdb.home.data.mapper.toEntity
 import com.shaikhabdulgani.tmdb.home.data.mapper.toMovie
-import javax.inject.Inject
+import com.shaikhabdulgani.tmdb.home.data.remote.HomeApi
+import com.shaikhabdulgani.tmdb.home.data.remote.model.MovieListType
+import com.shaikhabdulgani.tmdb.home.data.remote.model.SeriesListType
+import com.shaikhabdulgani.tmdb.home.domain.model.Media
+import com.shaikhabdulgani.tmdb.home.domain.repository.HomeRepository
 
-class HomeRepositoryImpl @Inject constructor(
+class HomeRepositoryImpl(
     private val api: HomeApi,
     private val movieDao: MovieDao,
     private val seriesDao: SeriesDao,

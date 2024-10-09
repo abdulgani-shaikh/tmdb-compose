@@ -12,13 +12,10 @@ import com.shaikhabdulgani.tmdb.core.domain.repository.UserRepository
 import com.shaikhabdulgani.tmdb.core.domain.util.Resource
 import com.shaikhabdulgani.tmdb.core.presentation.util.emptyUser
 import com.shaikhabdulgani.tmdb.home.domain.model.Media
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class ProfileViewModel @Inject constructor(
+class ProfileViewModel (
     private val authRepository: AuthRepository,
     private val userRepository: UserRepository
 ) : SessionViewModel(authRepository) {

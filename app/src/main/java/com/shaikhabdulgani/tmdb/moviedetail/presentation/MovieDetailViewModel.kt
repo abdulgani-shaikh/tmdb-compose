@@ -12,13 +12,10 @@ import com.shaikhabdulgani.tmdb.core.domain.util.Resource
 import com.shaikhabdulgani.tmdb.moviedetail.domain.repository.MovieDetailRepository
 import com.shaikhabdulgani.tmdb.moviedetail.presentation.util.emptyMovieDetail
 import com.shaikhabdulgani.tmdb.search.domain.model.ContentType
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class MovieDetailViewModel @Inject constructor(
+class MovieDetailViewModel(
     private val repository: MovieDetailRepository,
     private val userRepository: UserRepository,
     private val authRepository: AuthRepository,
